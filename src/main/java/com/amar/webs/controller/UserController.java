@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-    @RequestMapping(value = "/tologin")
+    @RequestMapping(value = "/")
     public String tologin( HttpServletRequest request , HttpServletResponse response )
     {
         
