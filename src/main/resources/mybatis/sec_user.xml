@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amar.webs.dao.Sec_userDAO">
+    <insert id="addSec_User" parameterType="sec_user" >		   
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT @@IDENTITY AS id
+        </selectKey>
+        insert into sec_user
+        (
+        realname, loginname, pw, email, phone, lastlogintime,usergroup
+        ) 
+        values
+        (
+        #{realname}, #{loginname}, #{pw}, #{email}, #{phone},
+        #{lastlogintime},#{usergroup}
+        );
+    </insert>
+	  
+    <delete id="deleteSec_User" parameterType="sec_user">
+        delete from sec_user where id = #{id}
+    </delete>
+	  
+    <update id="editSec_User" parameterType="sec_user">
+        update sec_user
+    </update>
+	  
+    <select id="getSec_user" parameterType="sec_user" resultType="sec_user">
+        select * from sec_user 
+        <where>
+            <if test="id>0">
+                id = #{id}
+            </if>
+            <if test="loginname !=null ">
+                and loginname = #{loginname}
+            </if>
+            <if test="pw !=null ">
+                and pw = #{pw}
+            </if>
+        </where>
+    </select>    
+</mapper>
