@@ -24,6 +24,15 @@ public class Sec_user {
     private Date birthday;
     private int usergroup;
 
+    public Sec_user(String loginname, String pw) {
+        this.loginname = loginname;
+        this.pw = pw;
+    }
+
+    public Sec_user(){
+        
+    }
+    
     public int getId() {
         return id;
     }

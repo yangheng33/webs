@@ -13,7 +13,7 @@
         ) 
         values
         (
-        #{realname}, #{loginname}, #{pw}, #{email}, #{phone},
+        #{realname}, #{loginname}, PASSWORD(#{pw}), #{email}, #{phone},
         #{lastlogintime},#{usergroup}
         );
     </insert>
@@ -36,7 +36,7 @@
                 and loginname = #{loginname}
             </if>
             <if test="pw !=null ">
-                and pw = #{pw}
+                and pw = PASSWORD(#{pw})
             </if>
         </where>
     </select>    

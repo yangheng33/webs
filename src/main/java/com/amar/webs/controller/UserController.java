@@ -25,21 +25,31 @@ public class UserController {
     @Resource(name = "sec_userDAO")
     Sec_userDAO sec_UserDAO;
     
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/tologin")
     public String tologin( HttpServletRequest request , HttpServletResponse response )
     {
         
-        
-        
-        List<Sec_user> list = sec_UserDAO.getSec_user(new Sec_user());
-        System.out.println("size:"+list.size());
+        //System.out.println("size:"+list.size());
         return "/login/tologin";
     }
     
     @RequestMapping(value = "/login")
     public String login( HttpServletRequest request , HttpServletResponse response )
     {
-        //request.getSession().setAttribute(, this);
-        return "/home/home";
+        String loginname = request.getParameter("loginname");
+        String pw = request.getParameter("pw");
+
+        Sec_user user = new Sec_user(loginname, pw);
+
+        List<Sec_user> list = sec_UserDAO.getSec_user(user);
+        
+        if (list != null && list.size() == 1) {
+            request.getSession().setAttribute("user", user);
+            return "/home/home";
+        } else {
+            request.setAttribute("login", "fail");
+            return "/login/tologin";
+        }
+        
     }
 }
