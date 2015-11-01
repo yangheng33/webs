@@ -18,83 +18,58 @@
         <base href="<%=basePath%>"> 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-        <title>login</title>
-        <link src="<%=basePath%>resource/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 
-        <style type="text/css">
-            body {
-                padding-top: 40px;
-                padding-bottom: 40px;
-                background-color: #eee;
-            }
 
-            .form-signin {
-                max-width: 330px;
-                padding: 15px;
-                margin: 0 auto;
+        <title>login</title>        
+        <link rel="stylesheet" type="text/css" href="resource/jquery-easyui-1.4.3/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="resource/jquery-easyui-1.4.3/themes/icon.css">	
+        <script type="text/javascript" src="resource/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="resource/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+        <script>
+            function submitForm() {
+                if ($('#ff').form('validate')) {
+                    document.getElementById("ff").submit();
+                }
             }
-            .form-signin .form-signin-heading,
-            .form-signin .checkbox {
-                margin-bottom: 10px;
+            function clearForm() {
+                $('#ff').form('clear');
             }
-            .form-signin .checkbox {
-                font-weight: normal;
-            }
-            .form-signin .form-control {
-                position: relative;
-                height: auto;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                padding: 10px;
-                font-size: 16px;
-            }
-            .form-signin .form-control:focus {
-                z-index: 2;
-            }
-            .form-signin input[type="email"] {
-                margin-bottom: -1px;
-                border-bottom-right-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-            .form-signin input[type="password"] {
-                margin-bottom: 10px;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-            }            
-            
+        </script>       
+
+        <style>
+            body{ text-align:center} 
+            #centerDivCss{margin:0 auto;} 
         </style>
-        
-            
     </head>
-    <body>                                    
-        <div class="container">
-
-            <form action="user/login" method="post" class="form-signin">
-                <c:if test="${login != null }">
-                    login fail
-                </c:if>
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <label for="inputEmail" class="sr-only">login name</label>
-                <input type="text" id="loginname" name="loginname" class="form-control" placeholder="login name" required autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="pw" name="pw" class="form-control" placeholder="Password" required>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+    <body  background="resource/image/1.jpg">                                    
+        <div style="margin:20px 0;"></div>
+        <div width="100%" style="text-align:center">
+            <div class="easyui-panel" title="Login" style="position:relative;overflow:hidden;width:400px;" id="centerDivCss">
+                <div style="padding:10px 60px 20px 60px">
+                    <form id="ff" method="post" action="user/login">
+                        <table cellpadding="5">
+                            <tr>
+                                <td>LoginName:</td>
+                                <td><input class="easyui-textbox" type="text" id="loginname" name="loginname" data-options="required:true"></input></td>
+                            </tr>
+                            <tr>
+                                <td>Password:</td>
+                                <td><input class="easyui-textbox" type="password" id="pw" name="pw" data-options="required:true"></input></td>
+                            </tr>
+                            <tr>
+                                <c:if test="${login != null }">
+                                    <td colspan="2">check loginname or password,please.</td>
+                                </c:if>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+                <div style="text-align:center;padding:5px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Clear</a>
+                </div>
+            </div>
         </div>
 
-       
     </body>
 </html>
