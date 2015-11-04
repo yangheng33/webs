@@ -5,8 +5,9 @@
  */
 package com.amar.webs.controller;
 
-import com.amar.webs.dao.Sec_userDAO;
-import com.amar.webs.model.Sec_user;
+import com.amar.webs.dao.SecUserMapper;
+import com.amar.webs.model.SecUser;
+import com.amar.webs.model.SecUserExample;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/user")
 public class UserController {
     
-    @Resource(name = "sec_userDAO")
-    Sec_userDAO sec_UserDAO;
+    //@Resource(name = "sec_userDAO")
+    //Sec_userDAO sec_UserDAO;
+    @Resource(name = "secUserMapper")
+    SecUserMapper secUserMapper;
+    
     
     @RequestMapping(value = "/tologin")
     public String tologin( HttpServletRequest request , HttpServletResponse response )
@@ -38,13 +42,13 @@ public class UserController {
     {
         String loginname = request.getParameter("loginname");
         String pw = request.getParameter("pw");
-
-        Sec_user user = new Sec_user(loginname, pw);
-
-        List<Sec_user> list = sec_UserDAO.getSec_user(user);
+        SecUserExample secUserExample = new SecUserExample();
+        
+        secUserExample.createCriteria().andLoginnameEqualTo(loginname).andPwEqualTo(pw);
+        List<SecUser> list = secUserMapper.selectByExample(secUserExample);
         
         if (list != null && list.size() == 1) {
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("user", list.get(0));
             return "/home/home";
         } else {
             request.setAttribute("login", "fail");
