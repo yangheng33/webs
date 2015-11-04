@@ -28,11 +28,15 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         
-        <table tableName="sec_user">
+<!--        <table tableName="sec_user">
             <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />
         </table>
         <table tableName="sec_group">
             <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />
         </table>
+        <table tableName="news">
+            <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />
+        </table>-->
+        
     </context>
 </generatorConfiguration>
