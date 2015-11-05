@@ -80,7 +80,10 @@ public class NeedLoginIntercepter implements HandlerInterceptor {
 //        }
         String url = arg0.getRequestURI();
         SecUser user = (SecUser) arg0.getSession().getAttribute("user");
-        if (user == null && (!url.contains("/user/tologin") && !url.contains("user/login"))) {
+        if(url.contains("/resource/")||url.contains("html")){
+            
+        }
+        else if (user == null && (!url.contains("/user/tologin") && !url.contains("user/login"))) {
             log.debug("需要登录");
             arg1.sendRedirect(arg0.getContextPath()+"/user/tologin");
             result = false;

@@ -8,7 +8,10 @@ package com.amar.webs.controller;
 import com.amar.webs.dao.SecUserMapper;
 import com.amar.webs.model.SecUser;
 import com.amar.webs.model.SecUserExample;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,13 +43,21 @@ public class UserController {
         secUserExample.createCriteria().andLoginnameEqualTo(loginname).andPwEqualTo(pw);
         List<SecUser> list = secUserMapper.selectByExample(secUserExample);
 
-        if (list != null && list.size() == 1) {
-            request.getSession().setAttribute("user", list.get(0));
-            return "/news/newslist";
-        } else {
-            request.setAttribute("login", "fail");
-            return "/login/tologin";
+        String result = "/login/tologin";
+        try {
+            
+            if (list != null && list.size() == 1) {
+                request.getSession().setAttribute("user", list.get(0));
+                //return "/news/newslist";
+                response.sendRedirect(request.getContextPath() + "/news/list");
+                result = null;
+            } else {
+                request.setAttribute("login", "fail");                
+                //response.sendRedirect(request.getContextPath() + "/user/tologin");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return result;
     }
 }

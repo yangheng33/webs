@@ -81,7 +81,7 @@ public class NewsController {
 
     @RequestMapping(value = "/toadd")
     public String toAddNews(HttpServletRequest request, HttpServletResponse response) {
-        return "/news/addlist";
+        return "/news/addnews";
     }
 
     @RequestMapping(value = "/add")
