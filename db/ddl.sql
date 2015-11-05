@@ -32,4 +32,4 @@ CREATE TABLE `news` (
   `titlepic` varchar(200) NOT NULL COMMENT '标题缩略图路径',
   `sourceby` varchar(200) DEFAULT NULL COMMENT '出处，原创，转载自',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

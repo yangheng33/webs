@@ -22,38 +22,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-    
-    //@Resource(name = "sec_userDAO")
-    //Sec_userDAO sec_UserDAO;
+
     @Resource(name = "secUserMapper")
     SecUserMapper secUserMapper;
-    
-    
+
     @RequestMapping(value = "/tologin")
-    public String tologin( HttpServletRequest request , HttpServletResponse response )
-    {
-        
-        //System.out.println("size:"+list.size());
+    public String tologin(HttpServletRequest request, HttpServletResponse response) {
         return "/login/tologin";
     }
-    
+
     @RequestMapping(value = "/login")
-    public String login( HttpServletRequest request , HttpServletResponse response )
-    {
+    public String login(HttpServletRequest request, HttpServletResponse response) {
         String loginname = request.getParameter("loginname");
         String pw = request.getParameter("pw");
         SecUserExample secUserExample = new SecUserExample();
-        
+
         secUserExample.createCriteria().andLoginnameEqualTo(loginname).andPwEqualTo(pw);
         List<SecUser> list = secUserMapper.selectByExample(secUserExample);
-        
+
         if (list != null && list.size() == 1) {
             request.getSession().setAttribute("user", list.get(0));
-            return "/home/home";
+            return "/news/newslist";
         } else {
             request.setAttribute("login", "fail");
             return "/login/tologin";
         }
-        
+
     }
 }
