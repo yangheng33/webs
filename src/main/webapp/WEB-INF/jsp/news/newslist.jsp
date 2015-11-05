@@ -40,23 +40,23 @@
             <tr>
                 <td></td>
                 <td>
-                    <input class="easyui-textbox" data-options="prompt:'Enter a email address...',validType:'email'" style="width:100%;height:32px">
+                    <input class="easyui-textbox"  style="width:100%;height:24px">
                 </td>
                 <td></td>
                 <td>
-                    <input class="easyui-textbox" data-options="prompt:'Enter a email address...',validType:'email'" style="width:100%;height:32px">
+                    <input class="easyui-textbox" style="width:100%;height:24px">
                 </td>            
                 <td></td>
                 <td>
-                    <input class="easyui-textbox" data-options="prompt:'Enter a email address...',validType:'email'" style="width:100%;height:32px">
+                    <input class="easyui-textbox" style="width:100%;height:24px">
                 </td>
                 <td></td>
                 <td>
-                    <input class="easyui-textbox" data-options="prompt:'Enter a email address...',validType:'email'" style="width:100%;height:32px">
+                    <input class="easyui-datebox textbox" style="width:100%;height:24px">
                 </td>
                 <td></td>
                 <td>
-                    <select class="easyui-combobox" name="state" style="width:200px;">
+                    <select class="easyui-combobox" name="state" style="width:200px;height:24px">
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -64,13 +64,28 @@
                     </select> 
                 </td>
                 <td>
-                    <a href="javascript:void(0)" onclick="queryNews()" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;height:32px">Query</a>            
-                    <a href="javascript:void(0)" onclick="toAdd()" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;height:32px">Add</a>            
+                    <a href="javascript:void(0)" onclick="queryNews()" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;height:24px">Query</a>            
+                    <a href="javascript:void(0)" onclick="toAdd()" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;height:24px">Add</a>            
                 </td>
                 
             </tr>
         </table>        
         </form>        
-       
+        <div style="margin:20px 0;"></div>
+
+        <table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+               data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+            <thead>
+                <tr>
+                    <th data-options="field:'itemid',width:80">Item ID</th>
+                    <th data-options="field:'productid',width:100">Product</th>
+                    <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+                    <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+                    <th data-options="field:'attr1',width:250">Attribute</th>
+                    <th data-options="field:'status',width:60,align:'center'">Status</th>
+                </tr>
+            </thead>
+        </table>
+
     </body>
 </html>

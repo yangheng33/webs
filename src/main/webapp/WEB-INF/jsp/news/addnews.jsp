@@ -19,8 +19,26 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="resource/ckeditor/ckeditor.js"></script>
+        <script src="resource/js/addnews.js"></script>
+        <script src="js/sample.js"></script>
+        <link rel="stylesheet" href="css/samples.css">
+        <link rel="stylesheet" href="toolbarconfigurator/lib/codemirror/neo.css">
     </head>
     <body>
         <h1>Hello World!</h1>
+        <div class="adjoined-bottom">
+            <div class="grid-container">
+                <div class="grid-width-100">
+                    <div id="editor">
+                        <h1>Hello world!</h1>
+                        <p>I'm an instance of <a href="http://ckeditor.com">CKEditor</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        initSample();
+        </script>
     </body>
 </html>
