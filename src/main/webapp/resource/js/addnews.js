@@ -13,7 +13,7 @@ if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 CKEDITOR.config.height = 350;
 CKEDITOR.config.width = 'auto';
 
-var initSample = ( function() {
+var initEditor = ( function() {
 	var wysiwygareaAvailable = isWysiwygareaAvailable(),
 		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
 
@@ -23,7 +23,7 @@ var initSample = ( function() {
 		// :(((
 		if ( isBBCodeBuiltIn ) {
 			editorElement.setHtml(
-				'Hello world!\n\n' +
+				'amar :Hello world!\n\n' +
 				'I\'m an instance of [url=http://ckeditor.com]CKEditor[/url].'
 			);
 		}
@@ -51,3 +51,27 @@ var initSample = ( function() {
 	}
 } )();
 
+function lookFirst()
+{
+    var html = CKEDITOR.instances.editor.getData();
+    var f = document.getElementById('TheForm');
+    f.info.value = addSuffixAndPrefix($('#title').val(), html);
+    window.open('', 'TheWindow');
+    f.submit();
+}
+
+function addNews()
+{
+    var html = CKEDITOR.instances.editor.getData();
+    $('#content').val(addSuffixAndPrefix($('#title').val(),html));
+    if ($('#addFrom').form('validate')) {
+        document.getElementById("addFrom").submit();
+    }   
+}
+
+function addSuffixAndPrefix(title,content)
+{
+    var htmlPrefix = "<html><head><meta charset='utf-8'><meta http-equiv='Content-Type' content ='text/html; charset=UTF-8'><title>"+title+"</title></head><body>";
+    var htmlSuffix = "</body></html>";
+    return htmlPrefix + content + htmlSuffix;
+}

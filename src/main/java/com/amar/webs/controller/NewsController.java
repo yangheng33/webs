@@ -11,7 +11,10 @@ import com.amar.webs.model.NewsExample;
 import com.amar.webs.model.NewsExample.Criteria;
 import com.amar.webs.model.SecUser;
 import com.amar.webs.utils.DatetimeUtil;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,11 +102,12 @@ public class NewsController {
         news.setContent(content);
         news.setSourceby(sourceby);
         news.setTitlepic(titlepic);
-
+        news.setStarttime(new Date());
+        news.setStatus(1);
         SecUser user = (SecUser) request.getSession().getAttribute("user");
         news.setEditorid(user.getId());
         newsMapper.insert(news);
-        return "/news/newlist";
+        return "/news/newslist";
     }
 
     @RequestMapping(value = "/del")
@@ -111,6 +115,20 @@ public class NewsController {
 
     }
 
+    @RequestMapping(value = "/look")
+    public void lookFirst(HttpServletRequest request, HttpServletResponse response) {
+        String info = request.getParameter("info");
+        try {
+            //response.setHeader("Content-Type", "text/plain;charset=UTF-8");
+            //response.getOutputStream().write(info.getBytes());
+            response.setHeader("Content-Type", "text/html;charset=UTF-8");
+            response.getWriter().write(info);
+            
+        } catch (IOException ex) {
+            
+        }
+    }
+    
     @RequestMapping(value = "/edit")
     public String editNews(HttpServletRequest request, HttpServletResponse response) {
 
