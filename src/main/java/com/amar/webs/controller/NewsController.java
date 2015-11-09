@@ -5,6 +5,7 @@
  */
 package com.amar.webs.controller;
 
+import com.amar.webs.api.Echo;
 import com.amar.webs.dao.NewsMapper;
 import com.amar.webs.model.News;
 import com.amar.webs.model.NewsExample;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  *
  * @author Administrator
@@ -31,9 +34,9 @@ import org.apache.log4j.Logger;
 @Controller
 @RequestMapping("/news")
 public class NewsController {
-    
-    private final Logger log = Logger.getLogger( this.getClass() );
-    
+
+    private final Logger log = Logger.getLogger(this.getClass());
+
     @Resource(name = "newsMapper")
     NewsMapper newsMapper;
 
@@ -88,26 +91,35 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/add")
-    public String addNews(HttpServletRequest request, HttpServletResponse response) {
-        //String status = request.getParameter("status");
-        String categroy = request.getParameter("categoryid");
-        String content = request.getParameter("content");
-        String title = request.getParameter("title");
-        String sourceby = request.getParameter("sourceby");
-        String titlepic = request.getParameter("titlepic");
+    public @ResponseBody Echo addNews(HttpServletRequest request, HttpServletResponse response) {
+        Echo<String> echo = new Echo<>();
+       
+        try {
+            //String status = request.getParameter("status");
+            String categroy = request.getParameter("categoryid");
+            String content = request.getParameter("content");
+            String title = request.getParameter("title");
+            String sourceby = request.getParameter("sourceby");
+            String titlepic = request.getParameter("titlepic");
 
-        News news = new News();
-        news.setCategoryid(Integer.parseInt(categroy));
-        news.setTitle(title);
-        news.setContent(content);
-        news.setSourceby(sourceby);
-        news.setTitlepic(titlepic);
-        news.setStarttime(new Date());
-        news.setStatus(1);
-        SecUser user = (SecUser) request.getSession().getAttribute("user");
-        news.setEditorid(user.getId());
-        newsMapper.insert(news);
-        return "/news/newslist";
+            News news = new News();
+            news.setCategoryid(Integer.parseInt(categroy));
+            news.setTitle(title);
+            news.setContent(content);
+            news.setSourceby(sourceby);
+            news.setTitlepic(titlepic);
+            news.setStarttime(new Date());
+            news.setLastedittime(new Date());
+            news.setStatus(1);
+            SecUser user = (SecUser) request.getSession().getAttribute("user");
+            news.setEditorid(user.getId());
+            newsMapper.insert(news);
+            echo.putSuccess(Echo.SUCCESS );
+        } catch (Exception e) {
+            echo.putFail(e.getMessage());
+        }
+        return echo;
+        //return "/news/newslist";
     }
 
     @RequestMapping(value = "/del")
@@ -123,12 +135,12 @@ public class NewsController {
             //response.getOutputStream().write(info.getBytes());
             response.setHeader("Content-Type", "text/html;charset=UTF-8");
             response.getWriter().write(info);
-            
+
         } catch (IOException ex) {
-            
+
         }
     }
-    
+
     @RequestMapping(value = "/edit")
     public String editNews(HttpServletRequest request, HttpServletResponse response) {
 
